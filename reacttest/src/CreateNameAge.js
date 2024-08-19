@@ -140,8 +140,7 @@ export function UpdateNameAge() {
 const createConfirmLinks = {
   sendUrl: "http://localhost:8080/name-age/create",
   succeededUrl: "/name-age/create-succeeded",
-  failedUrl: "/name-age/create-failed",
-  backUrl: "/name-age/create"
+  failedUrl: "/name-age/create-failed"
 };
 
 const createConfirmTexts = {
@@ -188,8 +187,7 @@ export function CreateNameAgeConfirm() {
 const updateConfirmLinks = {
   sendUrl: "http://localhost:8080/name-age/update",
   succeededUrl: "/name-age/update-succeeded",
-  failedUrl: "/name-age/update-failed",
-  backUrl: "/name-age/update"
+  failedUrl: "/name-age/update-failed"
 };
 
 const updateConfirmTexts = {
@@ -235,8 +233,7 @@ export function UpdateNameAgeConfirm() {
 const deleteConfirmLinks = {
   sendUrl: "http://localhost:8080/name-age/delete",
   succeededUrl: "/name-age/delete-succeeded",
-  failedUrl: "/name-age/delete-failed",
-  backUrl: "/name-age"
+  failedUrl: "/name-age/delete-failed"
 };
 
 const deleteConfirmTexts = {

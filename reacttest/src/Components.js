@@ -136,7 +136,7 @@ export function ConfirmDisplay(props) {
         {formItems}
         <div className="form-item right">
           <input formMethod="POST" type="submit" />
-          <button type="button" onClick={() => navigate(links.backUrl, { state: state })}>戻る</button>
+          <button type="button" onClick={() => navigate(-1, { state: state })}>戻る</button>
         </div>
       </form>
     </div>
