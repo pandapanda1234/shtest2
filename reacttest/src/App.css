@@ -1,0 +1,194 @@
+body {
+  background-color: #ececf0;
+  font-style: normal;
+}
+
+h1 {
+  margin: 0.67rem;
+  font-size: 3rem;
+  background-color: #d0d0d7;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table td {
+  border: 1px solid black;
+  font-size: 3rem;
+  overflow: hidden;
+  text-align: center;
+}
+
+.grid_v2 {
+  display: grid;
+  grid-template-rows: 50% 50%;
+}
+
+.grid_h2 {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.App {
+  padding: 0.67rem;
+  text-align: center;
+}
+
+.content {
+  margin: 1.34rem;
+  font-size: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.full {
+  width: 100%;
+}
+
+textarea.resize-vert {
+  resize: vertical;
+}
+
+textarea.wide-line {
+  height: 4em;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+div.box {
+  margin: 0.67rem;
+  background-color: #f0f0f7;
+  border: #000 solid 1px;
+  font-size: 1rem;
+  box-shadow: 2px 5px 7px 0 #4444;
+  transition: 0.15s;
+}
+
+div.box.hover-color:hover {
+  background-color: #eef;
+  transition: 0.3s;
+}
+
+form.message-form,div.message-form {
+  margin: 0.67rem auto;
+  background-color: #f0f0f7;
+  border: #000 solid 1px;
+  font-size: 1rem;
+  width: 40%;
+}
+
+div.form-item {
+  margin: 0.67rem auto;
+  width: 50%;
+  text-align: left;
+}
+
+div.title-bar {
+  margin: 1rem;
+  border-bottom: #000 solid 1px;
+}
+
+p.title-bar {
+  text-align: left;
+  display: flex;
+}
+
+p.text-content {
+  text-align: left;
+  margin: 1rem;
+}
+
+p.text-info {
+  display: flex;
+  justify-content: right;
+  margin: 0.5rem auto;
+}
+
+.form-full {
+  margin: 0.67rem;
+}
+
+span.message-title {
+  font-weight: bold;
+  font-size: 1.2em;
+  flex: 4;
+}
+
+span.message-user {
+  font-weight: bold;
+  font-size: 1.2em;
+  flex: 1;
+}
+
+span.message-create,span.message-last-updated {
+  margin-inline-start: 1rem;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.big {
+  font-size: 2em;
+}
+
+.small {
+  font-size: 1em;
+}
+
+.forms {
+  display: block;
+  text-align: left;
+}
+
+.link-button {
+  color: #52b;
+  border: #000 solid 2px;
+  background-color: #fff;
+  display: inline;
+  padding: 0.2rem;
+}
+
+.message {
+  display: inline;
+  margin-left: 1rem;
+}
+
+.overflow {
+  overflow-wrap: break-word;
+}
+
+input.inline-input,select.inline-input {
+  display: inline;
+}
+
+img.image-top {
+  height: 50vh;
+}
+
+ul.text-list {
+  text-align: left;
+}
+
+li {
+  margin-bottom: 1rem;
+}
