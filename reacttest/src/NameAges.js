@@ -58,7 +58,6 @@ export function NameAgeDetail() {
         return response.json();
       })
       .then(json => {
-        console.log(json);
         if(json.status === "OK") {
           return json.content;
         } else {
