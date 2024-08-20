@@ -96,8 +96,23 @@ public class NameAgeServiceImpl implements NameAgeService {
     
     @Override
     public Map<String, Object> delete(NameAgeModel nameAge) {
-        // TODO
-        return null;
+
+        Map<String, Object> messageMap = new HashMap<>();
+
+        try {
+            nameAgeRepository.delete(nameAge);
+            
+            messageMap.put("status", HttpStatus.OK);
+
+        } catch(Exception e) {
+            messageMap.put("status", HttpStatus.BAD_REQUEST);
+
+            messageMap.put("message", "Update failed.");
+            
+        }
+
+        return messageMap;
+
     }
     
     @Override
