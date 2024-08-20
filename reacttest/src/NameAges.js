@@ -19,7 +19,7 @@ export function NameAges() {
       })
       .catch(_ => { console.log("Fetch failed."); });
   }, []);
-
+  // commit用
   const nameAgeList = Object.keys(nameAges).filter((key) => !nameAges[key].deleted).map((key) => {
     const nameAge = nameAges[key];
     return(
