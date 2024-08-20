@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,11 @@ public class NameAgeServiceImpl implements NameAgeService {
 
             messageMap.put("content", result);
 
+        } catch(IllegalArgumentException e) {
+            messageMap.put("status", HttpStatus.BAD_REQUEST);
+
+            messageMap.put("message", "ID is Illegal.");
+
         } catch(NoSuchElementException e) {
             messageMap.put("status", HttpStatus.NOT_FOUND);
 
@@ -61,7 +67,7 @@ public class NameAgeServiceImpl implements NameAgeService {
 
             messageMap.put("content", result);
 
-        } catch(Exception e) {
+        } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
             messageMap.put("status", HttpStatus.BAD_REQUEST);
 
             messageMap.put("message", "Create failed.");
@@ -83,7 +89,7 @@ public class NameAgeServiceImpl implements NameAgeService {
 
             messageMap.put("content", result);
 
-        } catch(Exception e) {
+        } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
             messageMap.put("status", HttpStatus.BAD_REQUEST);
 
             messageMap.put("message", "Update failed.");
@@ -104,7 +110,7 @@ public class NameAgeServiceImpl implements NameAgeService {
             
             messageMap.put("status", HttpStatus.OK);
 
-        } catch(Exception e) {
+        } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
             messageMap.put("status", HttpStatus.BAD_REQUEST);
 
             messageMap.put("message", "Update failed.");
