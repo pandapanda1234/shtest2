@@ -164,6 +164,7 @@ span.message-create,span.message-last-updated {
   color: #52b;
   border: #000 solid 2px;
   background-color: #fff;
+  text-decoration: none;
   display: inline;
   padding: 0.2rem;
 }
