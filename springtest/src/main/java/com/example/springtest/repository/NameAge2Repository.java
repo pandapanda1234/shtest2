@@ -25,7 +25,7 @@ public interface NameAge2Repository extends JpaRepository<NameAge2Model, Integer
                 "FROM " +
                 "    createtb_db.name_age_list2 " +
                 "    INNER JOIN createtb_db.name_hobby_list " +
-                "        ON createtb_db.name_age_list2.id = createtb_db.name_hobby_list.id;";
+                "        ON createtb_db.name_age_list2.name = createtb_db.name_hobby_list.name;";
 
     @Query(value = GET_LIST_SQL, nativeQuery = true)
     List<NameAge2Model> getAllJoined();
@@ -42,8 +42,8 @@ public interface NameAge2Repository extends JpaRepository<NameAge2Model, Integer
 
     static final String CREATE_HOBBY_SKILL_SQL = 
                 "INSERT " +
-                "INTO createtb_db.name_hobby_list(id, name, hobby, skill) " +
-                "VALUES (LAST_INSERT_ID(), :name, :hobby, :skill);";
+                "INTO createtb_db.name_hobby_list(name, hobby, skill) " +
+                "VALUES (:name, :hobby, :skill);";
 
     @Modifying
     @Transactional
