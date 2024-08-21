@@ -30,6 +30,24 @@ public interface NameAge2Repository extends JpaRepository<NameAge2Model, Integer
     @Query(value = GET_LIST_SQL, nativeQuery = true)
     List<NameAge2Model> getAllJoined();
 
+    static final String GET_DETAIL_SQL = 
+                "SELECT " +
+                "    createtb_db.name_age_list2.id, " +
+                "    createtb_db.name_age_list2.name, " +
+                "    createtb_db.name_age_list2.age, " +
+                "    createtb_db.name_age_list2.remarks, " +
+                "    createtb_db.name_hobby_list.hobby, " +
+                "    createtb_db.name_hobby_list.skill " +
+                "FROM " +
+                "    createtb_db.name_age_list2 " +
+                "    INNER JOIN createtb_db.name_hobby_list " +
+                "        ON createtb_db.name_age_list2.name = createtb_db.name_hobby_list.name " +
+                "WHERE" + 
+                "    createtb_db.name_age_list2.name = :name;";
+
+    @Query(value = GET_DETAIL_SQL, nativeQuery = true)
+    List<NameAge2Model> getDetail(@Param("name") String name);
+
     static final String CREATE_NAME_AGE_SQL = 
                 "INSERT " +
                 "INTO createtb_db.name_age_list2(name, age, remarks) " +

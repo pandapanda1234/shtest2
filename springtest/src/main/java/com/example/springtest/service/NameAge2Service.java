@@ -11,7 +11,7 @@ public interface NameAge2Service {
 
     public List<NameAge2Model> getAllJoined();
 
-    public Map<String, Object> getById(int id);
+    public Map<String, Object> getByName(String name);
 
     public Map<String, Object> saveNew(NameAge2Model nameAge);
 

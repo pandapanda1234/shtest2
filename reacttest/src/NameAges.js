@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import { ResultDisplay } from "./Components";
 
@@ -23,7 +23,7 @@ export function NameAges() {
   const nameAgeList = Object.keys(nameAges).filter((key) => !nameAges[key].deleted).map((key) => {
     const nameAge = nameAges[key];
     return(
-      <div className="box hover-color" key={nameAge.id} id={nameAge.id} onClick={() => navigate(`${nameAge.id}`)}>
+      <div className="box hover-color" key={nameAge.id} id={nameAge.id} onClick={() => navigate(`/name-age/detail?name=${nameAge.name}`)}>
         <p className="title-bar text-content">
           <span className="message-title">名前: {nameAge.name}</span>
           <span className="message-user">年齢: {nameAge.age}</span>
@@ -50,10 +50,10 @@ export function NameAgeDetail() {
   const navigate = useNavigate();
   const [nameAge, setNameAge] = useState([]);
   const [deleted, setDeleted] = useState(false);
-  const params = useParams();
+  const [params, _] = useSearchParams();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/name-age/${params.id}`, {
+    fetch(`http://localhost:8080/name-age2/detail?name=${params.get("name")}`, {
       method: "GET",
       mode: "cors"
     })
@@ -91,6 +91,12 @@ export function NameAgeDetail() {
           <p className="title-bar text-content">
             <span className="message-title">名前: {nameAge.name}</span>
             <span className="message-user">年齢: {nameAge.age}</span>
+          </p>
+          <p className="text-content">
+            <span className="message-user">趣味: {nameAge.hobby}</span>
+          </p>
+          <p className="text-content">
+            <span className="message-user">スキル: {nameAge.skill}</span>
           </p>
         </div>
       </div>

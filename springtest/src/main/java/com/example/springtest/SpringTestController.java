@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springtest.model.NameAgeModel;
@@ -89,6 +90,15 @@ public class SpringTestController {
     @GetMapping("/name-age2")
     public List<NameAge2Model> nameAge2List() {
         return nameAge2Service.getAllJoined();
+    }
+
+    @GetMapping("/name-age2/detail")
+    public ResponseEntity<Map<String, Object>> nameAge2Detail(@RequestParam("name") String name) {
+
+        Map<String, Object> messageMap = nameAge2Service.getByName(name);
+
+        return functionService.makeResponse(messageMap);
+        
     }
 
     @PostMapping(value = "/name-age2/check", consumes = MediaType.APPLICATION_JSON_VALUE)

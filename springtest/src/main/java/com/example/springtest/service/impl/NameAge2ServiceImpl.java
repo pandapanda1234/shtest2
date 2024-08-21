@@ -2,6 +2,7 @@ package com.example.springtest.service.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
@@ -38,9 +39,40 @@ public class NameAge2ServiceImpl implements NameAge2Service {
     }
 
     @Override
-    public Map<String, Object> getById(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    public Map<String, Object> getByName(String name) {
+
+        Map<String, Object> messageMap = new HashMap<>();
+
+        try {
+            List<NameAge2Model> resultList = nameAge2Repository.getDetail(name);
+
+            if(resultList.size() == 0) {
+
+                throw new NoSuchElementException();
+
+            }
+
+            NameAge2Model result = resultList.get(0);
+
+            messageMap.put("status", HttpStatus.OK);
+
+            messageMap.put("content", result);
+
+        } catch(IllegalArgumentException e) {
+            messageMap.put("status", HttpStatus.BAD_REQUEST);
+
+            messageMap.put("message", "Name is Illegal.");
+
+        }
+         catch(NoSuchElementException e) {
+            messageMap.put("status", HttpStatus.NOT_FOUND);
+
+            messageMap.put("message", "Not Found.");
+
+        }
+
+        return messageMap;
+
     }
 
     @Override
