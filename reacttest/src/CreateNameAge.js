@@ -5,11 +5,13 @@ import { ResultDisplay, ConfirmDisplay, CreateDisplay } from "./Components";
 const dataInfo = [
   {name: "id", displayName: "ID", type: "hidden"},
   {name: "name", displayName: "名前", type: "text"},
-  {name: "age", displayName: "年齢", type: "number"}
+  {name: "age", displayName: "年齢", type: "number"},
+  {name: "hobby", displayName: "趣味", type: "text"},
+  {name: "skill", displayName: "スキル", type: "text"}
 ];
 
 const createLinks = {
-  sendUrl: "http://localhost:8080/name-age/check",
+  sendUrl: "http://localhost:8080/name-age2/check",
   nextUrl: "/name-age/create-confirm"
 }
 
@@ -138,7 +140,7 @@ export function UpdateNameAge() {
 // }
 
 const createConfirmLinks = {
-  sendUrl: "http://localhost:8080/name-age/create",
+  sendUrl: "http://localhost:8080/name-age2/create",
   succeededUrl: "/name-age/create-succeeded",
   failedUrl: "/name-age/create-failed"
 };

@@ -91,4 +91,22 @@ public class SpringTestController {
         return nameAge2Service.getAllJoined();
     }
 
+    @PostMapping(value = "/name-age2/check", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> createNameAge2Check(@RequestBody NameAge2Model nameAge) {
+        
+        Map<String, Object> messageMap = nameAge2Service.checkInputs(nameAge);
+        
+        return functionService.makeResponse(messageMap);
+        
+    }
+
+    @PostMapping(value = "/name-age2/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> createNameAge2(@RequestBody NameAge2Model nameAge) {
+        
+        Map<String, Object> messageMap = nameAge2Service.saveNew(nameAge);
+        
+        return functionService.makeResponse(messageMap);
+        
+    }
+
 }
