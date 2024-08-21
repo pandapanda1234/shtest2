@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springtest.model.NameAgeModel;
+import com.example.springtest.model.NameAge2Model;
 import com.example.springtest.service.FunctionService;
 import com.example.springtest.service.NameAgeService;
+import com.example.springtest.service.NameAge2Service;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "http://localhost:3000")
 public class SpringTestController {
     private final NameAgeService nameAgeService;
+
+    private final NameAge2Service nameAge2Service;
     
     private final FunctionService functionService;
 
@@ -78,6 +82,13 @@ public class SpringTestController {
         
         return functionService.makeResponse(messageMap);
 
+    }
+
+    // --------
+
+    @GetMapping("/name-age2")
+    public List<NameAge2Model> nameAge2List() {
+        return nameAge2Service.getAllJoined();
     }
 
 }

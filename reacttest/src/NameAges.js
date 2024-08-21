@@ -8,7 +8,7 @@ export function NameAges() {
   const [nameAges, setNameAges] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/name-age", {
+    fetch("http://localhost:8080/name-age2", {
       method: "GET",
       mode: "cors"
     })
@@ -19,7 +19,7 @@ export function NameAges() {
       })
       .catch(_ => { console.log("Fetch failed."); });
   }, []);
-  // commit用
+
   const nameAgeList = Object.keys(nameAges).filter((key) => !nameAges[key].deleted).map((key) => {
     const nameAge = nameAges[key];
     return(
@@ -27,6 +27,12 @@ export function NameAges() {
         <p className="title-bar text-content">
           <span className="message-title">名前: {nameAge.name}</span>
           <span className="message-user">年齢: {nameAge.age}</span>
+        </p>
+        <p className="text-content">
+          <span className="message-user">趣味: {nameAge.hobby}</span>
+        </p>
+        <p className="text-content">
+          <span className="message-user">スキル: {nameAge.skill}</span>
         </p>
       </div>
     );
