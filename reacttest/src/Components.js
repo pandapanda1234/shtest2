@@ -18,14 +18,14 @@ export function CreateDisplay(props) {
   const header = props.header;
   const links = props.links;
   const dataInfo = props.dataInfo;
-  const options = props.options == null ? {} : props.options;
+  const options = props.options ?? {};
   const navigate = useNavigate();
   const location = useLocation();
   const [state, _] = useState(location.state);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const formItems = dataInfo.map(info => {
-    const val = state == null ? null : state[info.name];
+    const val = state?.[info.name];
     switch(info.type) {
       case "hidden":
         return (
@@ -41,7 +41,7 @@ export function CreateDisplay(props) {
         );
 
       default:
-        const readonly = options.readonly == null ? false : options.readonly[info.name];
+        const readonly = options?.readonly?.[info.name];
         return (
           <div className="form-item">
             <label htmlFor={info.name}>{info.displayName}: </label>
@@ -76,7 +76,7 @@ export function CreateDisplay(props) {
   return (
     <div className="App">
       <h1>{header}</h1>
-      {(errorMessage == null) ? (<></>) : (<p className="red">{errorMessage}</p>)}
+      {<p className="red">{errorMessage}</p>}
       <form onSubmit={submitHandler} className="message-form">
         {formItems}
         <div className="form-item right"><input formMethod="POST" type="submit" /></div>
@@ -96,7 +96,7 @@ export function ConfirmDisplay(props) {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const formItems = dataInfo.map(info => {
-    const val = state == null ? null : state[info.name];
+    const val = state?.[info.name];
     switch(info.type) {
       case "hidden":
         return <></>;
