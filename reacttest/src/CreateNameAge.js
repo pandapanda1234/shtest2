@@ -68,8 +68,14 @@ const updateLinks = {
   nextUrl: "/name-age/update-confirm"
 }
 
+const updateOptions = {
+  readonly: {
+    name: true
+  }
+}
+
 export function UpdateNameAge() {
-  return <CreateDisplay header="人物修正" dataInfo={dataInfo} links={updateLinks} />
+  return <CreateDisplay header="人物修正" dataInfo={dataInfo} links={updateLinks} options={updateOptions} />
 }
 
 // export function UpdateNameAge() {

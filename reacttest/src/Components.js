@@ -18,6 +18,7 @@ export function CreateDisplay(props) {
   const header = props.header;
   const links = props.links;
   const dataInfo = props.dataInfo;
+  const options = props.options == null ? {} : props.options;
   const navigate = useNavigate();
   const location = useLocation();
   const [state, _] = useState(location.state);
@@ -40,10 +41,11 @@ export function CreateDisplay(props) {
         );
 
       default:
+        const readonly = options.readonly == null ? false : options.readonly[info.name];
         return (
           <div className="form-item">
             <label htmlFor={info.name}>{info.displayName}: </label>
-            <input type={info.type} name={info.name} className="full" defaultValue={val} />
+            <input type={info.type} name={info.name} className="full" defaultValue={val} readOnly={readonly} />
           </div>
         );
     }
