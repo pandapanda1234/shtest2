@@ -127,6 +127,11 @@ span.message-user {
   flex: 1;
 }
 
+span.message-text {
+  font-size: 1.2em;
+  flex: 1;
+}
+
 span.message-create,span.message-last-updated {
   margin-inline-start: 1rem;
 }

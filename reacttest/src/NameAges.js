@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { ResultDisplay } from "./Components";
 
@@ -29,10 +29,10 @@ export function NameAges() {
           <span className="message-user">年齢: {nameAge.age}</span>
         </p>
         <p className="text-content">
-          <span className="message-user">趣味: {nameAge.hobby}</span>
+          <span className="message-user">趣味: </span><span className="message-text">{nameAge.hobby}</span>
         </p>
         <p className="text-content">
-          <span className="message-user">スキル: {nameAge.skill}</span>
+          <span className="message-user">スキル: </span><span className="message-text">{nameAge.skill}</span>
         </p>
       </div>
     );
@@ -93,10 +93,10 @@ export function NameAgeDetail() {
             <span className="message-user">年齢: {nameAge.age}</span>
           </p>
           <p className="text-content">
-            <span className="message-user">趣味: {nameAge.hobby}</span>
+            <span className="message-user">趣味: </span><span className="message-text">{nameAge.hobby}</span>
           </p>
           <p className="text-content">
-            <span className="message-user">スキル: {nameAge.skill}</span>
+            <span className="message-user">スキル: </span><span className="message-text">{nameAge.skill}</span>
           </p>
         </div>
       </div>
