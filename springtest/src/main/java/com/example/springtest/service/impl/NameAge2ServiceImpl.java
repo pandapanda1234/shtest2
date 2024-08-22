@@ -150,8 +150,27 @@ public class NameAge2ServiceImpl implements NameAge2Service {
 
     @Override
     public Map<String, Object> delete(NameAge2Model nameAge) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+
+        String name = nameAge.getName();
+
+        Map<String, Object> messageMap = new HashMap<>();
+
+        try {
+            int result = nameAge2Repository.deleteByName(name);
+            
+            messageMap.put("status", HttpStatus.OK);
+
+            messageMap.put("result_nameAge", result);
+
+        } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
+            messageMap.put("status", HttpStatus.BAD_REQUEST);
+
+            messageMap.put("message", "Create failed.");
+            
+        }
+
+        return messageMap;
+
     }
 
     @Override

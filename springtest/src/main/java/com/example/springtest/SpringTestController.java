@@ -128,4 +128,13 @@ public class SpringTestController {
         
     }
 
+    @PostMapping(value = "/name-age2/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> deleteNameAge2(@RequestBody NameAge2Model nameAge) {
+        
+        Map<String, Object> messageMap = nameAge2Service.delete(nameAge);
+        
+        return functionService.makeResponse(messageMap);
+        
+    }
+
 }

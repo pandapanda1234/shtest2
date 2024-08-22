@@ -239,7 +239,7 @@ export function UpdateNameAgeConfirm() {
 // }
 
 const deleteConfirmLinks = {
-  sendUrl: "http://localhost:8080/name-age/delete",
+  sendUrl: "http://localhost:8080/name-age2/delete",
   succeededUrl: "/name-age/delete-succeeded",
   failedUrl: "/name-age/delete-failed"
 };

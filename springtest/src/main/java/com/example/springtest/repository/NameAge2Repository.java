@@ -93,4 +93,19 @@ public interface NameAge2Repository extends JpaRepository<NameAge2Model, Integer
     @Query(value = UPDATE_HOBBY_SKILL_SQL, nativeQuery = true)
     int updateHobbySkill(@Param("name") String name, @Param("hobby") String hobby, @Param("skill") String skill);
 
+    static final String DELETE_SQL = 
+                "DELETE createtb_db.name_age_list2, " + 
+                "createtb_db.name_hobby_list " + 
+                "FROM" + 
+                "    createtb_db.name_age_list2 " + 
+                "    INNER JOIN createtb_db.name_hobby_list " + 
+                "        ON createtb_db.name_age_list2.name = createtb_db.name_hobby_list.name " + 
+                "WHERE" + 
+                "    createtb_db.name_age_list2.name = :name;";
+
+    @Modifying
+    @Transactional
+    @Query(value = DELETE_SQL, nativeQuery = true)
+    int deleteByName(@Param("name") String name);
+
 }
