@@ -12,7 +12,13 @@ export function NameAges() {
       method: "GET",
       mode: "cors"
     })
-      .then(response => response.json())
+      .then(response => {
+        if(response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response);
+        }
+      })
       .then(json => {
         setNameAges(json);
         console.log("Fetch succeeded.");
