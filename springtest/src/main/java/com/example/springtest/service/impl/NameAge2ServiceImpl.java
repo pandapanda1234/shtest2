@@ -115,8 +115,37 @@ public class NameAge2ServiceImpl implements NameAge2Service {
 
     @Override
     public Map<String, Object> update(NameAge2Model nameAge) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+
+        String name = nameAge.getName();
+        
+        int age = nameAge.getAge();
+
+        String hobby = nameAge.getHobby();
+
+        String skill = nameAge.getSkill();
+
+        Map<String, Object> messageMap = new HashMap<>();
+
+        try {
+            int resultNameAge = nameAge2Repository.updateNameAge(name, age);
+            
+            int resultHobbySkill = nameAge2Repository.updateHobbySkill(name, hobby, skill);
+            
+            messageMap.put("status", HttpStatus.OK);
+
+            messageMap.put("result_nameAge", resultNameAge);
+
+            messageMap.put("result_hobbySkill", resultHobbySkill);
+
+        } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
+            messageMap.put("status", HttpStatus.BAD_REQUEST);
+
+            messageMap.put("message", "Create failed.");
+            
+        }
+
+        return messageMap;
+
     }
 
     @Override
@@ -131,9 +160,6 @@ public class NameAge2ServiceImpl implements NameAge2Service {
         String name = nameAge.getName();
         
         int age = nameAge.getAge();
-
-        // TODO
-        // String remarks = "ABC";
 
         String hobby = nameAge.getHobby();
 

@@ -119,4 +119,13 @@ public class SpringTestController {
         
     }
 
+    @PostMapping(value = "/name-age2/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> updateNameAge2(@RequestBody NameAge2Model nameAge) {
+        
+        Map<String, Object> messageMap = nameAge2Service.update(nameAge);
+        
+        return functionService.makeResponse(messageMap);
+        
+    }
+
 }

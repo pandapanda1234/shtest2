@@ -64,7 +64,7 @@ export function CreateNameAge() {
 // }
 
 const updateLinks = {
-  sendUrl: "http://localhost:8080/name-age/check",
+  sendUrl: "http://localhost:8080/name-age2/check",
   nextUrl: "/name-age/update-confirm"
 }
 
@@ -187,7 +187,7 @@ export function CreateNameAgeConfirm() {
 // }
 
 const updateConfirmLinks = {
-  sendUrl: "http://localhost:8080/name-age/update",
+  sendUrl: "http://localhost:8080/name-age2/update",
   succeededUrl: "/name-age/update-succeeded",
   failedUrl: "/name-age/update-failed"
 };

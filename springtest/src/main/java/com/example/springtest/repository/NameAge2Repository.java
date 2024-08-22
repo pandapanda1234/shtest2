@@ -67,5 +67,30 @@ public interface NameAge2Repository extends JpaRepository<NameAge2Model, Integer
     @Transactional
     @Query(value = CREATE_HOBBY_SKILL_SQL, nativeQuery = true)
     int saveNewHobbySkill(@Param("name") String name, @Param("hobby") String hobby, @Param("skill") String skill);
-    
+
+    static final String UPDATE_NAME_AGE_SQL = 
+                "UPDATE createtb_db.name_age_list2 " +
+                "SET" +
+                "    age = :age " +
+                "WHERE" +
+                "    name = :name; ";
+
+    @Modifying
+    @Transactional
+    @Query(value = UPDATE_NAME_AGE_SQL, nativeQuery = true)
+    int updateNameAge(@Param("name") String name, @Param("age") Integer age);
+
+    static final String UPDATE_HOBBY_SKILL_SQL = 
+                "UPDATE createtb_db.name_hobby_list " +
+                "SET" +
+                "    hobby = :hobby, " +
+                "    skill = :skill " +
+                "WHERE" +
+                "    name = :name;";
+
+    @Modifying
+    @Transactional
+    @Query(value = UPDATE_HOBBY_SKILL_SQL, nativeQuery = true)
+    int updateHobbySkill(@Param("name") String name, @Param("hobby") String hobby, @Param("skill") String skill);
+
 }
