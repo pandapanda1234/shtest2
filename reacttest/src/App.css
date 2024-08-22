@@ -71,6 +71,10 @@ div.box {
   transition: 0.15s;
 }
 
+button,input[type=button],input[type=submit] {
+  margin-inline-start: 0.5rem;
+}
+
 div.box.hover-color:hover {
   background-color: #eef;
   transition: 0.3s;
