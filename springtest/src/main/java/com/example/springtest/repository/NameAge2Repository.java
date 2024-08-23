@@ -48,6 +48,17 @@ public interface NameAge2Repository extends JpaRepository<NameAge2Model, Integer
     @Query(value = GET_DETAIL_SQL, nativeQuery = true)
     List<NameAge2Model> getDetail(@Param("name") String name);
 
+    static final String COUNT_SQL = 
+                "SELECT" +
+                "    count(name) " +
+                "FROM" +
+                "    createtb_db.name_age_list2 " +
+                "WHERE" +
+                "    name = :name; ";
+
+    @Query(value = COUNT_SQL, nativeQuery = true)
+    int getCount(@Param("name") String name);
+
     static final String CREATE_NAME_AGE_SQL = 
                 "INSERT " +
                 "INTO createtb_db.name_age_list2(name, age, remarks) " +

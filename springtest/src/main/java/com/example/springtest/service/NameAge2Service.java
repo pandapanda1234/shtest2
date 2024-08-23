@@ -19,6 +19,6 @@ public interface NameAge2Service {
 
     public Map<String, Object> delete(NameAge2Model nameAge);
     
-    public Map<String, Object> checkInputs(NameAge2Model nameAge);
+    public Map<String, Object> checkInputs(NameAge2Model nameAge, boolean expectsExsisting);
 
 }

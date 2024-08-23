@@ -49,7 +49,7 @@ public class SpringTestController {
         
     }
     
-    @PostMapping(value = "/name-age/check", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/name-age/check-create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> createNameAgeCheck(@RequestBody NameAgeModel nameAge) {
         
         Map<String, Object> messageMap = nameAgeService.checkNameAge(nameAge);
@@ -101,10 +101,19 @@ public class SpringTestController {
         
     }
 
-    @PostMapping(value = "/name-age2/check", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/name-age2/check-create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> createNameAge2Check(@RequestBody NameAge2Model nameAge) {
         
-        Map<String, Object> messageMap = nameAge2Service.checkInputs(nameAge);
+        Map<String, Object> messageMap = nameAge2Service.checkInputs(nameAge, false);
+        
+        return functionService.makeResponse(messageMap);
+        
+    }
+
+    @PostMapping(value = "/name-age2/check-update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> updateNameAge2Check(@RequestBody NameAge2Model nameAge) {
+        
+        Map<String, Object> messageMap = nameAge2Service.checkInputs(nameAge, true);
         
         return functionService.makeResponse(messageMap);
         

@@ -11,7 +11,7 @@ const dataInfo = [
 ];
 
 const createLinks = {
-  sendUrl: "http://localhost:8080/name-age2/check",
+  sendUrl: "http://localhost:8080/name-age2/check-create",
   nextUrl: "/name-age/create-confirm"
 }
 
@@ -64,7 +64,7 @@ export function CreateNameAge() {
 // }
 
 const updateLinks = {
-  sendUrl: "http://localhost:8080/name-age2/check",
+  sendUrl: "http://localhost:8080/name-age2/check-update",
   nextUrl: "/name-age/update-confirm"
 }
 

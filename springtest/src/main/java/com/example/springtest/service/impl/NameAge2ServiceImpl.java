@@ -174,7 +174,7 @@ public class NameAge2ServiceImpl implements NameAge2Service {
     }
 
     @Override
-    public Map<String, Object> checkInputs(NameAge2Model nameAge) {
+    public Map<String, Object> checkInputs(NameAge2Model nameAge, boolean expectsExsisting) {
         
         String name = nameAge.getName();
         
@@ -187,6 +187,8 @@ public class NameAge2ServiceImpl implements NameAge2Service {
         Map<String, Object> messageMap = new HashMap<>();
         
         StringBuilder errorMessage = new StringBuilder();
+
+        boolean exists = nameAge2Repository.getCount(name) > 0;
         
         boolean succeeded = true;
         
@@ -228,6 +230,21 @@ public class NameAge2ServiceImpl implements NameAge2Service {
             errorMessage.append("Skill is too long.\n");
             
             succeeded = false;
+        }
+
+        if(expectsExsisting) {
+            if(!exists) {
+                errorMessage.append("Name not exists.\n");
+            
+                succeeded = false;
+            }
+
+        } else {
+            if(exists) {
+                errorMessage.append("Name exists.\n");
+            
+                succeeded = false;
+            }
         }
         
         if(succeeded) {
