@@ -3,7 +3,6 @@ package com.example.springtest.service.impl;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -41,8 +40,6 @@ public class NameAge2ServiceImpl implements NameAge2Service {
     @Override
     public Map<String, Object> getByName(String name) {
 
-        Map<String, Object> messageMap = new HashMap<>();
-
         try {
             List<NameAge2Model> resultList = nameAge2Repository.getDetail(name);
 
@@ -54,24 +51,30 @@ public class NameAge2ServiceImpl implements NameAge2Service {
 
             NameAge2Model result = resultList.get(0);
 
-            messageMap.put("status", HttpStatus.OK);
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.OK),
 
-            messageMap.put("content", result);
+                Map.entry("content", result)
+            );
 
         } catch(IllegalArgumentException e) {
-            messageMap.put("status", HttpStatus.BAD_REQUEST);
 
-            messageMap.put("message", "Name is Illegal.");
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.BAD_REQUEST),
+
+                Map.entry("message", "Name is Illegal.")
+            );
 
         }
          catch(NoSuchElementException e) {
-            messageMap.put("status", HttpStatus.NOT_FOUND);
 
-            messageMap.put("message", "Not Found.");
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.NOT_FOUND),
+
+                Map.entry("message", "Not Found.")
+            );
 
         }
-
-        return messageMap;
 
     }
 
@@ -89,27 +92,29 @@ public class NameAge2ServiceImpl implements NameAge2Service {
 
         String skill = nameAge.getSkill();
 
-        Map<String, Object> messageMap = new HashMap<>();
-
         try {
             int resultNameAge = nameAge2Repository.saveNewNameAge(name, age, remarks);
             
             int resultHobbySkill = nameAge2Repository.saveNewHobbySkill(name, hobby, skill);
-            
-            messageMap.put("status", HttpStatus.OK);
 
-            messageMap.put("result_nameAge", resultNameAge);
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.OK),
 
-            messageMap.put("result_hobbySkill", resultHobbySkill);
+                Map.entry("result_nameAge", resultNameAge),
+
+                Map.entry("result_hobbySkill", resultHobbySkill)
+
+            );
 
         } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
-            messageMap.put("status", HttpStatus.BAD_REQUEST);
 
-            messageMap.put("message", "Create failed.");
-            
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.BAD_REQUEST),
+
+                Map.entry("message", "Create failed.")
+            );
+
         }
-
-        return messageMap;
 
     }
 
@@ -124,27 +129,28 @@ public class NameAge2ServiceImpl implements NameAge2Service {
 
         String skill = nameAge.getSkill();
 
-        Map<String, Object> messageMap = new HashMap<>();
-
         try {
             int resultNameAge = nameAge2Repository.updateNameAge(name, age);
             
             int resultHobbySkill = nameAge2Repository.updateHobbySkill(name, hobby, skill);
-            
-            messageMap.put("status", HttpStatus.OK);
 
-            messageMap.put("result_nameAge", resultNameAge);
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.OK),
 
-            messageMap.put("result_hobbySkill", resultHobbySkill);
+                Map.entry("result_nameAge", resultNameAge),
+
+                Map.entry("result_hobbySkill", resultHobbySkill)
+
+            );
 
         } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
-            messageMap.put("status", HttpStatus.BAD_REQUEST);
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.BAD_REQUEST),
 
-            messageMap.put("message", "Create failed.");
+                Map.entry("message", "Update failed.")
+            );
             
         }
-
-        return messageMap;
 
     }
 
@@ -153,23 +159,23 @@ public class NameAge2ServiceImpl implements NameAge2Service {
 
         String name = nameAge.getName();
 
-        Map<String, Object> messageMap = new HashMap<>();
-
         try {
             int result = nameAge2Repository.deleteByName(name);
             
-            messageMap.put("status", HttpStatus.OK);
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.OK),
 
-            messageMap.put("result_nameAge", result);
+                Map.entry("content", result)
+            );
 
         } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
-            messageMap.put("status", HttpStatus.BAD_REQUEST);
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.BAD_REQUEST),
 
-            messageMap.put("message", "Create failed.");
+                Map.entry("message", "Delete failed.")
+            );
             
         }
-
-        return messageMap;
 
     }
 
@@ -183,8 +189,6 @@ public class NameAge2ServiceImpl implements NameAge2Service {
         String hobby = nameAge.getHobby();
 
         String skill = nameAge.getSkill();
-        
-        Map<String, Object> messageMap = new HashMap<>();
         
         StringBuilder errorMessage = new StringBuilder();
 
@@ -248,16 +252,18 @@ public class NameAge2ServiceImpl implements NameAge2Service {
         }
         
         if(succeeded) {
-            messageMap.put("status", HttpStatus.OK);
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.OK)
+            );
             
         } else {
-            messageMap.put("status", HttpStatus.BAD_REQUEST);
-            
-            messageMap.put("message", errorMessage.toString());
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.BAD_REQUEST),
+
+                Map.entry("message", errorMessage.toString())
+            );
     
         }
-
-        return messageMap;
         
     }
     
