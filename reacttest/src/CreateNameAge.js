@@ -5,16 +5,30 @@ import { ResultDisplay, ConfirmDisplay, CreateDisplay } from "./Components";
 const dataInfo = [
   {name: "id", displayName: "ID", type: "hidden"},
   {name: "name", displayName: "名前", type: "text"},
-  {name: "age", displayName: "年齢", type: "number"}
+  {name: "age", displayName: "年齢", type: "number"},
+  {name: "hobby", displayName: "趣味", type: "text"},
+  {name: "skill", displayName: "スキル", type: "text"}
 ];
 
+const errorDisplayMap = {
+  "name-empty": "名前が空です。",
+  "name-long": "名前が長すぎます。",
+  "age-negative": "年齢が負です。",
+  "hobby-empty": "趣味が空です。",
+  "hobby-long": "趣味が長すぎます。",
+  "skill-empty": "スキルが空です。",
+  "skill-long": "スキルが長すぎます。",
+  "name-not-exists": "その名前は存在しません。",
+  "name-exists": "その名前は既に存在します。",
+}
+
 const createLinks = {
-  sendUrl: "http://localhost:8080/name-age/check",
+  sendUrl: "http://localhost:8080/name-age2/check-create",
   nextUrl: "/name-age/create-confirm"
 }
 
 export function CreateNameAge() {
-  return <CreateDisplay header="人物作成" dataInfo={dataInfo} links={createLinks} />
+  return <CreateDisplay header="人物作成" dataInfo={dataInfo} links={createLinks} errorDisplayMap={errorDisplayMap} />
 }
 
 // export function CreateNameAge() {
@@ -62,12 +76,18 @@ export function CreateNameAge() {
 // }
 
 const updateLinks = {
-  sendUrl: "http://localhost:8080/name-age/check",
+  sendUrl: "http://localhost:8080/name-age2/check-update",
   nextUrl: "/name-age/update-confirm"
 }
 
+const updateOptions = {
+  readonly: {
+    name: true
+  }
+}
+
 export function UpdateNameAge() {
-  return <CreateDisplay header="人物修正" dataInfo={dataInfo} links={updateLinks} />
+  return <CreateDisplay header="人物修正" dataInfo={dataInfo} links={updateLinks} options={updateOptions} errorDisplayMap={errorDisplayMap} />
 }
 
 // export function UpdateNameAge() {
@@ -138,7 +158,7 @@ export function UpdateNameAge() {
 // }
 
 const createConfirmLinks = {
-  sendUrl: "http://localhost:8080/name-age/create",
+  sendUrl: "http://localhost:8080/name-age2/create",
   succeededUrl: "/name-age/create-succeeded",
   failedUrl: "/name-age/create-failed"
 };
@@ -185,7 +205,7 @@ export function CreateNameAgeConfirm() {
 // }
 
 const updateConfirmLinks = {
-  sendUrl: "http://localhost:8080/name-age/update",
+  sendUrl: "http://localhost:8080/name-age2/update",
   succeededUrl: "/name-age/update-succeeded",
   failedUrl: "/name-age/update-failed"
 };
@@ -231,7 +251,7 @@ export function UpdateNameAgeConfirm() {
 // }
 
 const deleteConfirmLinks = {
-  sendUrl: "http://localhost:8080/name-age/delete",
+  sendUrl: "http://localhost:8080/name-age2/delete",
   succeededUrl: "/name-age/delete-succeeded",
   failedUrl: "/name-age/delete-failed"
 };

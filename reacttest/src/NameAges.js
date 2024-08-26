@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { ResultDisplay } from "./Components";
 
@@ -8,25 +8,47 @@ export function NameAges() {
   const [nameAges, setNameAges] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/name-age", {
-      method: "GET",
-      mode: "cors"
-    })
-      .then(response => response.json())
+    const fetchData = () => {
+      fetch("http://localhost:8080/name-age2", {
+        method: "GET",
+        mode: "cors"
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response);
+        }
+      })
       .then(json => {
         setNameAges(json);
-        console.log("Fetch succeeded.");
       })
-      .catch(_ => { console.log("Fetch failed."); });
+      .catch(reason => {
+        console.error(reason);
+      });
+    };
+
+    const intervalFetch = setInterval(fetchData, 30000);
+
+    fetchData();
+
+    return () => clearInterval(intervalFetch);
+
   }, []);
 
   const nameAgeList = Object.keys(nameAges).filter((key) => !nameAges[key].deleted).map((key) => {
     const nameAge = nameAges[key];
     return(
-      <div className="box hover-color" key={nameAge.id} id={nameAge.id} onClick={() => navigate(`${nameAge.id}`)}>
+      <div className="box hover-color" key={nameAge.id} id={nameAge.id} onClick={() => navigate(`/name-age/detail?name=${nameAge.name}`)}>
         <p className="title-bar text-content">
           <span className="message-title">名前: {nameAge.name}</span>
           <span className="message-user">年齢: {nameAge.age}</span>
+        </p>
+        <p className="text-content">
+          <span className="message-user">趣味: </span><span className="message-text">{nameAge.hobby}</span>
+        </p>
+        <p className="text-content">
+          <span className="message-user">スキル: </span><span className="message-text">{nameAge.skill}</span>
         </p>
       </div>
     );
@@ -44,10 +66,10 @@ export function NameAgeDetail() {
   const navigate = useNavigate();
   const [nameAge, setNameAge] = useState([]);
   const [deleted, setDeleted] = useState(false);
-  const params = useParams();
+  const [params, _] = useSearchParams();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/name-age/${params.id}`, {
+    fetch(`http://localhost:8080/name-age2/detail?name=${params.get("name")}`, {
       method: "GET",
       mode: "cors"
     })
@@ -85,6 +107,12 @@ export function NameAgeDetail() {
           <p className="title-bar text-content">
             <span className="message-title">名前: {nameAge.name}</span>
             <span className="message-user">年齢: {nameAge.age}</span>
+          </p>
+          <p className="text-content">
+            <span className="message-user">趣味: </span><span className="message-text">{nameAge.hobby}</span>
+          </p>
+          <p className="text-content">
+            <span className="message-user">スキル: </span><span className="message-text">{nameAge.skill}</span>
           </p>
         </div>
       </div>

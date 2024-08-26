@@ -1,0 +1,271 @@
+package com.example.springtest.service.impl;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+import org.springframework.stereotype.Service;
+import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.http.HttpStatus;
+
+import com.example.springtest.model.NameAge2Model;
+import com.example.springtest.repository.NameAge2Repository;
+import com.example.springtest.service.NameAge2Service;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class NameAge2ServiceImpl implements NameAge2Service {
+
+    static final int NAME_MAX_LENGTH = 30;
+
+    static final int HOBBY_MAX_LENGTH = 255;
+
+    static final int SKILL_MAX_LENGTH = 255;
+
+    private final NameAge2Repository nameAge2Repository;
+
+    @Override
+    public List<NameAge2Model> findAll() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    }
+
+    @Override
+    public List<NameAge2Model> getAllJoined() {
+        return nameAge2Repository.getAllJoined();
+    }
+
+    @Override
+    public Map<String, Object> getByName(String name) {
+
+        try {
+            List<NameAge2Model> resultList = nameAge2Repository.getDetail(name);
+
+            if(resultList.size() == 0) {
+
+                throw new NoSuchElementException();
+
+            }
+
+            NameAge2Model result = resultList.get(0);
+
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.OK),
+
+                Map.entry("content", result)
+            );
+
+        } catch(IllegalArgumentException e) {
+
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.BAD_REQUEST),
+
+                Map.entry("message", "Name is Illegal.")
+            );
+
+        }
+         catch(NoSuchElementException e) {
+
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.NOT_FOUND),
+
+                Map.entry("message", "Not Found.")
+            );
+
+        }
+
+    }
+
+    @Override
+    public Map<String, Object> saveNew(NameAge2Model nameAge) {
+
+        String name = nameAge.getName();
+        
+        int age = nameAge.getAge();
+
+        // TODO
+        String remarks = "XYZ";
+
+        String hobby = nameAge.getHobby();
+
+        String skill = nameAge.getSkill();
+
+        try {
+            int resultNameAge = nameAge2Repository.saveNewNameAge(name, age, remarks);
+            
+            int resultHobbySkill = nameAge2Repository.saveNewHobbySkill(name, hobby, skill);
+
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.OK),
+
+                Map.entry("result_nameAge", resultNameAge),
+
+                Map.entry("result_hobbySkill", resultHobbySkill)
+
+            );
+
+        } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
+
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.BAD_REQUEST),
+
+                Map.entry("message", "Create failed.")
+            );
+
+        }
+
+    }
+
+    @Override
+    public Map<String, Object> update(NameAge2Model nameAge) {
+
+        String name = nameAge.getName();
+        
+        int age = nameAge.getAge();
+
+        String hobby = nameAge.getHobby();
+
+        String skill = nameAge.getSkill();
+
+        try {
+            int resultNameAge = nameAge2Repository.updateNameAge(name, age);
+            
+            int resultHobbySkill = nameAge2Repository.updateHobbySkill(name, hobby, skill);
+
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.OK),
+
+                Map.entry("result_nameAge", resultNameAge),
+
+                Map.entry("result_hobbySkill", resultHobbySkill)
+
+            );
+
+        } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.BAD_REQUEST),
+
+                Map.entry("message", "Update failed.")
+            );
+            
+        }
+
+    }
+
+    @Override
+    public Map<String, Object> delete(NameAge2Model nameAge) {
+
+        String name = nameAge.getName();
+
+        try {
+            int result = nameAge2Repository.deleteByName(name);
+            
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.OK),
+
+                Map.entry("content", result)
+            );
+
+        } catch(IllegalArgumentException | OptimisticLockingFailureException e) {
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.BAD_REQUEST),
+
+                Map.entry("message", "Delete failed.")
+            );
+            
+        }
+
+    }
+
+    @Override
+    public Map<String, Object> checkInputs(NameAge2Model nameAge, boolean expectsExsisting) {
+        
+        String name = nameAge.getName();
+        
+        int age = nameAge.getAge();
+
+        String hobby = nameAge.getHobby();
+
+        String skill = nameAge.getSkill();
+        
+        List<String> errorMessage = new ArrayList<>();
+
+        boolean exists = nameAge2Repository.getCount(name) > 0;
+        
+        boolean succeeded = true;
+        
+        if(name == null || name.isEmpty()) {
+            errorMessage.add("name-empty");
+
+            succeeded = false;
+
+        } else if(name.length() > NAME_MAX_LENGTH) {
+            errorMessage.add("name-long");
+            
+            succeeded = false;
+        }
+        
+        if(age < 0) {
+            errorMessage.add("age-negative");
+            
+            succeeded = false;
+            
+        }
+
+        if(hobby == null || hobby.isEmpty()) {
+            errorMessage.add("hobby-empty");
+
+            succeeded = false;
+
+        } else if(hobby.length() > HOBBY_MAX_LENGTH) {
+            errorMessage.add("hobby-long");
+            
+            succeeded = false;
+        }
+
+        if(skill == null || skill.isEmpty()) {
+            errorMessage.add("skill-empty");
+
+            succeeded = false;
+
+        } else if(skill.length() > SKILL_MAX_LENGTH) {
+            errorMessage.add("skill-long");
+            
+            succeeded = false;
+        }
+
+        if(expectsExsisting) {
+            if(!exists) {
+                errorMessage.add("name-not-exists");
+            
+                succeeded = false;
+            }
+
+        } else {
+            if(exists) {
+                errorMessage.add("name-exists");
+            
+                succeeded = false;
+            }
+        }
+        
+        if(succeeded) {
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.OK)
+            );
+            
+        } else {
+            return Map.ofEntries(
+                Map.entry("status", HttpStatus.BAD_REQUEST),
+
+                Map.entry("message", errorMessage)
+            );
+    
+        }
+        
+    }
+    
+}

@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springtest.model.NameAgeModel;
+import com.example.springtest.model.NameAge2Model;
 import com.example.springtest.service.FunctionService;
 import com.example.springtest.service.NameAgeService;
+import com.example.springtest.service.NameAge2Service;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "http://localhost:3000")
 public class SpringTestController {
     private final NameAgeService nameAgeService;
+
+    private final NameAge2Service nameAge2Service;
     
     private final FunctionService functionService;
 
@@ -44,7 +49,7 @@ public class SpringTestController {
         
     }
     
-    @PostMapping(value = "/name-age/check", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/name-age/check-create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> createNameAgeCheck(@RequestBody NameAgeModel nameAge) {
         
         Map<String, Object> messageMap = nameAgeService.checkNameAge(nameAge);
@@ -78,6 +83,67 @@ public class SpringTestController {
         
         return functionService.makeResponse(messageMap);
 
+    }
+
+    // --------
+
+    @GetMapping("/name-age2")
+    public List<NameAge2Model> nameAge2List() {
+        return nameAge2Service.getAllJoined();
+    }
+
+    @GetMapping("/name-age2/detail")
+    public ResponseEntity<Map<String, Object>> nameAge2Detail(@RequestParam("name") String name) {
+
+        Map<String, Object> messageMap = nameAge2Service.getByName(name);
+
+        return functionService.makeResponse(messageMap);
+        
+    }
+
+    @PostMapping(value = "/name-age2/check-create", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> createNameAge2Check(@RequestBody NameAge2Model nameAge) {
+        
+        Map<String, Object> messageMap = nameAge2Service.checkInputs(nameAge, false);
+        
+        return functionService.makeResponse(messageMap);
+        
+    }
+
+    @PostMapping(value = "/name-age2/check-update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> updateNameAge2Check(@RequestBody NameAge2Model nameAge) {
+        
+        Map<String, Object> messageMap = nameAge2Service.checkInputs(nameAge, true);
+        
+        return functionService.makeResponse(messageMap);
+        
+    }
+
+    @PostMapping(value = "/name-age2/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> createNameAge2(@RequestBody NameAge2Model nameAge) {
+        
+        Map<String, Object> messageMap = nameAge2Service.saveNew(nameAge);
+        
+        return functionService.makeResponse(messageMap);
+        
+    }
+
+    @PostMapping(value = "/name-age2/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> updateNameAge2(@RequestBody NameAge2Model nameAge) {
+        
+        Map<String, Object> messageMap = nameAge2Service.update(nameAge);
+        
+        return functionService.makeResponse(messageMap);
+        
+    }
+
+    @PostMapping(value = "/name-age2/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> deleteNameAge2(@RequestBody NameAge2Model nameAge) {
+        
+        Map<String, Object> messageMap = nameAge2Service.delete(nameAge);
+        
+        return functionService.makeResponse(messageMap);
+        
     }
 
 }

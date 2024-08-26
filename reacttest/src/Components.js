@@ -18,36 +18,12 @@ export function CreateDisplay(props) {
   const header = props.header;
   const links = props.links;
   const dataInfo = props.dataInfo;
+  const options = props.options ?? {};
+  const errorDisplayMap = props.errorDisplayMap;
   const navigate = useNavigate();
   const location = useLocation();
   const [state, _] = useState(location.state);
   const [errorMessage, setErrorMessage] = useState(null);
-
-  const formItems = dataInfo.map(info => {
-    const val = state == null ? null : state[info.name];
-    switch(info.type) {
-      case "hidden":
-        return (
-          <input type="hidden" name={info.name} defaultValue={val} />
-        );
-
-      case "textarea":
-        return (
-          <div className="form-item">
-            <label htmlFor={info.name}>{info.displayName}: </label>
-            <textarea name={info.name} className="full wide-line resize-vert" defaultValue={val} />
-          </div>
-        );
-
-      default:
-        return (
-          <div className="form-item">
-            <label htmlFor={info.name}>{info.displayName}: </label>
-            <input type={info.type} name={info.name} className="full" defaultValue={val} />
-          </div>
-        );
-    }
-  });
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -70,11 +46,51 @@ export function CreateDisplay(props) {
     })
     .catch(reason => console.log(reason));
   }
+
+  const formItems = dataInfo.map(info => {
+    const val = state?.[info.name];
+    switch(info.type) {
+      case "hidden":
+        return (
+          <input key={info.name} type="hidden" name={info.name} defaultValue={val} />
+        );
+
+      case "textarea":
+        return (
+          <div key={info.name} className="form-item">
+            <label htmlFor={info.name}>{info.displayName}: </label>
+            <textarea name={info.name} className="full wide-line resize-vert" defaultValue={val} />
+          </div>
+        );
+
+      default:
+        const readonly = options?.readonly?.[info.name];
+        return (
+          <div key={info.name} className="form-item">
+            <label htmlFor={info.name}>{info.displayName}: </label>
+            <input type={info.type} name={info.name} className="full" defaultValue={val} readOnly={readonly} />
+          </div>
+        );
+    }
+  });
+
+  const errorDisplay = ((errorMessage) => {
+    if(errorMessage == null) {
+      return <></>;
+    } else {
+      return (
+        <div key="error" className="error">
+          <div className="error-head">ERROR!</div>
+          {errorMessage.map(message => <span key={message} id={message} >{errorDisplayMap[message]}</span>)}
+        </div>
+      );
+    }
+  })(errorMessage);
   
   return (
     <div className="App">
       <h1>{header}</h1>
-      {(errorMessage == null) ? (<></>) : (<p className="red">{errorMessage}</p>)}
+      {errorDisplay}
       <form onSubmit={submitHandler} className="message-form">
         {formItems}
         <div className="form-item right"><input formMethod="POST" type="submit" /></div>
@@ -91,16 +107,16 @@ export function ConfirmDisplay(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const [state, _] = useState(location.state);
-  const [errorMessage, setErrorMessage] = useState(null);
+  // const [errorMessage, setErrorMessage] = useState(null);
 
   const formItems = dataInfo.map(info => {
-    const val = state == null ? null : state[info.name];
+    const val = state?.[info.name];
     switch(info.type) {
       case "hidden":
         return <></>;
       default:
         return (
-          <div className="form-item">
+          <div key={info.name} className="form-item">
             <label>{info.displayName}: </label>
             <span className="overflow">{val}</span>
           </div>
