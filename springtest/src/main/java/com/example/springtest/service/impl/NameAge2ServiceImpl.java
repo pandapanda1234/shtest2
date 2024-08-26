@@ -1,6 +1,7 @@
 package com.example.springtest.service.impl;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -190,62 +191,62 @@ public class NameAge2ServiceImpl implements NameAge2Service {
 
         String skill = nameAge.getSkill();
         
-        StringBuilder errorMessage = new StringBuilder();
+        List<String> errorMessage = new ArrayList<>();
 
         boolean exists = nameAge2Repository.getCount(name) > 0;
         
         boolean succeeded = true;
         
         if(name == null || name.isEmpty()) {
-            errorMessage.append("Name is empty.\n");
+            errorMessage.add("name-empty");
 
             succeeded = false;
 
         } else if(name.length() > NAME_MAX_LENGTH) {
-            errorMessage.append("Name is too long.\n");
+            errorMessage.add("name-long");
             
             succeeded = false;
         }
         
         if(age < 0) {
-            errorMessage.append("Age is negative.\n");
+            errorMessage.add("age-negative");
             
             succeeded = false;
             
         }
 
         if(hobby == null || hobby.isEmpty()) {
-            errorMessage.append("Hobby is empty.\n");
+            errorMessage.add("hobby-empty");
 
             succeeded = false;
 
         } else if(hobby.length() > HOBBY_MAX_LENGTH) {
-            errorMessage.append("Hobby is too long.\n");
+            errorMessage.add("hobby-long");
             
             succeeded = false;
         }
 
         if(skill == null || skill.isEmpty()) {
-            errorMessage.append("Skill is empty.\n");
+            errorMessage.add("skill-empty");
 
             succeeded = false;
 
         } else if(skill.length() > SKILL_MAX_LENGTH) {
-            errorMessage.append("Skill is too long.\n");
+            errorMessage.add("skill-long");
             
             succeeded = false;
         }
 
         if(expectsExsisting) {
             if(!exists) {
-                errorMessage.append("Name not exists.\n");
+                errorMessage.add("name-not-exists");
             
                 succeeded = false;
             }
 
         } else {
             if(exists) {
-                errorMessage.append("Name exists.\n");
+                errorMessage.add("name-exists");
             
                 succeeded = false;
             }
@@ -260,7 +261,7 @@ public class NameAge2ServiceImpl implements NameAge2Service {
             return Map.ofEntries(
                 Map.entry("status", HttpStatus.BAD_REQUEST),
 
-                Map.entry("message", errorMessage.toString())
+                Map.entry("message", errorMessage)
             );
     
         }

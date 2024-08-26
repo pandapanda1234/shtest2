@@ -71,13 +71,32 @@ div.box {
   transition: 0.15s;
 }
 
-button,input[type=button],input[type=submit] {
-  margin-inline-start: 0.5rem;
-}
-
 div.box.hover-color:hover {
   background-color: #eef;
   transition: 0.3s;
+}
+
+div.error {
+  margin: 0.67rem auto;
+  padding: 0.33rem 0;
+  border: #f00 solid 1px;
+  background-color: #fcb;
+  color: #e11;
+  width: 40%;
+}
+
+div.error span {
+  margin: auto 0.5rem;
+  white-space: nowrap;
+}
+
+div.error div.error-head {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+button,input[type=button],input[type=submit] {
+  margin-inline-start: 0.5rem;
 }
 
 form.message-form,div.message-form {

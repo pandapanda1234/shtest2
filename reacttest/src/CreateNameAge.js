@@ -10,13 +10,25 @@ const dataInfo = [
   {name: "skill", displayName: "スキル", type: "text"}
 ];
 
+const errorDisplayMap = {
+  "name-empty": "名前が空です。",
+  "name-long": "名前が長すぎます。",
+  "age-negative": "年齢が負です。",
+  "hobby-empty": "趣味が空です。",
+  "hobby-long": "趣味が長すぎます。",
+  "skill-empty": "スキルが空です。",
+  "skill-long": "スキルが長すぎます。",
+  "name-not-exists": "その名前は存在しません。",
+  "name-exists": "その名前は既に存在します。",
+}
+
 const createLinks = {
   sendUrl: "http://localhost:8080/name-age2/check-create",
   nextUrl: "/name-age/create-confirm"
 }
 
 export function CreateNameAge() {
-  return <CreateDisplay header="人物作成" dataInfo={dataInfo} links={createLinks} />
+  return <CreateDisplay header="人物作成" dataInfo={dataInfo} links={createLinks} errorDisplayMap={errorDisplayMap} />
 }
 
 // export function CreateNameAge() {
@@ -75,7 +87,7 @@ const updateOptions = {
 }
 
 export function UpdateNameAge() {
-  return <CreateDisplay header="人物修正" dataInfo={dataInfo} links={updateLinks} options={updateOptions} />
+  return <CreateDisplay header="人物修正" dataInfo={dataInfo} links={updateLinks} options={updateOptions} errorDisplayMap={errorDisplayMap} />
 }
 
 // export function UpdateNameAge() {
