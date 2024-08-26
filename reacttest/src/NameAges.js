@@ -28,7 +28,7 @@ export function NameAges() {
       });
     };
 
-    const intervalFetch = setInterval(fetchData, 5000);
+    const intervalFetch = setInterval(fetchData, 30000);
 
     fetchData();
 
