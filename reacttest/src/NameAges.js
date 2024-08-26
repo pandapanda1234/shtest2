@@ -8,12 +8,13 @@ export function NameAges() {
   const [nameAges, setNameAges] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/name-age2", {
-      method: "GET",
-      mode: "cors"
-    })
+    const fetchData = () => {
+      fetch("http://localhost:8080/name-age2", {
+        method: "GET",
+        mode: "cors"
+      })
       .then(response => {
-        if(response.ok) {
+        if (response.ok) {
           return response.json();
         } else {
           throw new Error(response);
@@ -21,9 +22,18 @@ export function NameAges() {
       })
       .then(json => {
         setNameAges(json);
-        console.log("Fetch succeeded.");
       })
-      .catch(_ => { console.log("Fetch failed."); });
+      .catch(reason => {
+        console.error(reason);
+      });
+    };
+
+    const intervalFetch = setInterval(fetchData, 5000);
+
+    fetchData();
+
+    return () => clearInterval(intervalFetch);
+
   }, []);
 
   const nameAgeList = Object.keys(nameAges).filter((key) => !nameAges[key].deleted).map((key) => {
