@@ -28,12 +28,6 @@ public class NameAge2ServiceImpl implements NameAge2Service {
     private final NameAge2Repository nameAge2Repository;
 
     @Override
-    public List<NameAge2Model> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
-
-    @Override
     public List<NameAge2Model> getAllJoined() {
         return nameAge2Repository.getAllJoined();
     }
