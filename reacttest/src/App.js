@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import osaka from "./osaka.jpg";
+import yadon from "./yadon.jpg";
 
 function Texts() {
   const now = new Date();
   return (
     <div className="content">
-      <img src={osaka} className="image-top" alt="osaka" />
+      <img src={yadon} className="image-top" alt="yadon" />
       <ul className="text-list">
-        <li>左は大阪のかに道楽の写真です。</li>
-        <li>テキストテキストテキストテキストテキストテキストテキストテキスト</li>
-        <li className="blue">青文字行ですテキストテキストテキストテキスト</li>
-        <li className="red">赤文字行ですテキストテキストテキストテキスト</li>
+        <li>ヤドン。</li>
+        <li>水・エスパー</li>
+        <li className="blue">うごきが のろく まぬけ。 たたかれても 5びょう たってから いたさを かんじるほどだ。</li>
+        <li className="red">しっぽを かわに いれて エサを つっているが そのうち なにを しているのか わすれてしまい かわべりに ねそべったまま 1にちを おえる。</li>
         <li>{now.toString()}</li>
       </ul>
     </div>
@@ -151,7 +151,7 @@ function Forms() {
 function App() {
   return (
     <div className="App">
-      <h1>テストページ</h1>
+      <h1>ヤドン</h1>
       <Texts />
       <AlphabetTable />
       <Forms />
