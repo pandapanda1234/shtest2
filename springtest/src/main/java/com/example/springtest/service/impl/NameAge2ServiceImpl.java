@@ -350,7 +350,7 @@ public class NameAge2ServiceImpl implements NameAge2Service {
             succeeded = false;
         }
 
-        // nameを名前に持つ要素が存在することを期待する場合（編集・削除）
+        // nameを名前に持つ要素が存在することを期待する場合（修正・削除）
         if(expectsExsisting) {
 
             // nameを名前に持つ要素が存在しない場合
