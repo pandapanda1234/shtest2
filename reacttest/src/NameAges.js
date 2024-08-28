@@ -94,7 +94,7 @@ export function NameAgeDetail() {
   }, []);
 
   if(deleted) {
-    return (<ResultDisplay header="人物取得失敗" className="red" message="人物の取得に失敗した、もしくは削除されています。" />);
+    return <GetNameAgeDetailFailed />;
   } else {
     return (
       <div className="App">
@@ -118,4 +118,10 @@ export function NameAgeDetail() {
       </div>
     );
   }
+}
+
+// 人物取得失敗画面を返す関数
+function GetNameAgeDetailFailed() {
+  // 表題・表示色・メッセージを与えて人物取得失敗画面を生成した結果を返却する。
+  return <ResultDisplay header="人物取得失敗" className="red" message="人物の取得に失敗した、もしくは削除されています。" />;
 }
