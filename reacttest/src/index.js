@@ -6,12 +6,18 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './Routes';
 
+// ページのrootを指定する
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// rootにに内容を描画する
 root.render(
+  // Reactのデバッグ時に非推奨の挙動を検知する機能を有効にする
   <React.StrictMode>
+    {/* ルーティングの親となる要素 */}
     <BrowserRouter>
+      {/* ルーティング項目 */}
       <AppRoutes />
     </BrowserRouter>
+    {/* ページ下部のリンクボタン */}
     <LinkButtons />
   </React.StrictMode>
 );

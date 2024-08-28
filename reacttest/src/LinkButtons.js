@@ -1,3 +1,4 @@
+// 画面下のリンクボタンを返す関数
 export default function LinkButtons() {
   return (
     <footer className="content">

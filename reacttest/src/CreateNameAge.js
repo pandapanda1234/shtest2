@@ -2,6 +2,7 @@
 // import { useLocation, useNavigate } from "react-router-dom";
 import { ResultDisplay, ConfirmDisplay, CreateDisplay } from "./Components";
 
+// フォーム情報の名前と種類
 const dataInfo = [
   {name: "id", displayName: "ID", type: "hidden"},
   {name: "name", displayName: "名前", type: "text"},
@@ -10,6 +11,7 @@ const dataInfo = [
   {name: "skill", displayName: "スキル", type: "text"}
 ];
 
+// エラーメッセージ一覧
 const errorDisplayMap = {
   "name-empty": "名前が空です。",
   "name-long": "名前が長すぎます。",
@@ -22,12 +24,15 @@ const errorDisplayMap = {
   "name-exists": "その名前は既に存在します。",
 }
 
+// 人物作成画面での情報送信先と遷移先URL
 const createLinks = {
   sendUrl: "http://localhost:8080/name-age2/check-create",
   nextUrl: "/name-age/create-confirm"
 }
 
+// 人物作成画面を返す関数
 export function CreateNameAge() {
+  // 表題・フォーム情報・URL情報・エラーメッセージを与えて人物作成画面を生成した結果を返却する。
   return <CreateDisplay header="人物作成" dataInfo={dataInfo} links={createLinks} errorDisplayMap={errorDisplayMap} />
 }
 
@@ -75,18 +80,22 @@ export function CreateNameAge() {
 //   );
 // }
 
+// 人物修正画面での情報送信先と遷移先URL
 const updateLinks = {
   sendUrl: "http://localhost:8080/name-age2/check-update",
   nextUrl: "/name-age/update-confirm"
 }
 
+// 人物修正画面での設定項目
 const updateOptions = {
   readonly: {
     name: true
   }
 }
 
+// 人物修正画面を返す関数
 export function UpdateNameAge() {
+  // 表題・フォーム情報・URL情報・エラーメッセージを与えて人物修正画面を生成した結果を返却する。
   return <CreateDisplay header="人物修正" dataInfo={dataInfo} links={updateLinks} options={updateOptions} errorDisplayMap={errorDisplayMap} />
 }
 
@@ -157,18 +166,22 @@ export function UpdateNameAge() {
 //   )
 // }
 
+// 人物作成確認画面での情報送信先と遷移先URL
 const createConfirmLinks = {
   sendUrl: "http://localhost:8080/name-age2/create",
   succeededUrl: "/name-age/create-succeeded",
   failedUrl: "/name-age/create-failed"
 };
 
+// 人物作成確認画面での確認メッセージ
 const createConfirmTexts = {
   confirm: "以下の内容で作成しますか？"
 };
 
+// 人物作成確認画面を返す関数
 export function CreateNameAgeConfirm() {
-  return <ConfirmDisplay header="人物作成確認"  dataInfo={dataInfo} links={createConfirmLinks} texts={createConfirmTexts} />
+  // 表題・フォーム情報・URL情報・確認メッセージを与えて人物作成確認画面を生成した結果を返却する。
+  return <ConfirmDisplay header="人物作成確認" dataInfo={dataInfo} links={createConfirmLinks} texts={createConfirmTexts} />
 }
 
 // export function CreateNameAgeConfirm() {
@@ -204,18 +217,22 @@ export function CreateNameAgeConfirm() {
 //   );
 // }
 
+// 人物修正確認画面での情報送信先と遷移先URL
 const updateConfirmLinks = {
   sendUrl: "http://localhost:8080/name-age2/update",
   succeededUrl: "/name-age/update-succeeded",
   failedUrl: "/name-age/update-failed"
 };
 
+// 人物修正確認画面での確認メッセージ
 const updateConfirmTexts = {
   confirm: "以下の内容に修正しますか？"
 };
 
+// 人物修正確認画面を返す関数
 export function UpdateNameAgeConfirm() {
-  return <ConfirmDisplay header="人物修正確認"  dataInfo={dataInfo} links={updateConfirmLinks} texts={updateConfirmTexts} />
+  // 表題・フォーム情報・URL情報・確認メッセージを与えて人物作成確認画面を生成した結果を返却する。
+  return <ConfirmDisplay header="人物修正確認" dataInfo={dataInfo} links={updateConfirmLinks} texts={updateConfirmTexts} />
 }
 
 // export function UpdateNameAgeConfirm() {
@@ -250,18 +267,22 @@ export function UpdateNameAgeConfirm() {
 //   );
 // }
 
+// 人物削除確認画面での情報送信先と遷移先URL
 const deleteConfirmLinks = {
   sendUrl: "http://localhost:8080/name-age2/delete",
   succeededUrl: "/name-age/delete-succeeded",
   failedUrl: "/name-age/delete-failed"
 };
 
+// 人物削除確認画面での確認メッセージ
 const deleteConfirmTexts = {
   confirm: "以下の人物を削除しますか？"
 };
 
+// 人物削除確認画面を返す関数
 export function DeleteNameAgeConfirm() {
-  return <ConfirmDisplay header="人物削除確認"  dataInfo={dataInfo} links={deleteConfirmLinks} texts={deleteConfirmTexts} />
+  // 表題・フォーム情報・URL情報・確認メッセージを与えて人物削除確認画面を生成した結果を返却する。
+  return <ConfirmDisplay header="人物削除確認" dataInfo={dataInfo} links={deleteConfirmLinks} texts={deleteConfirmTexts} />
 }
 
 // export function DeleteNameAgeConfirm() {
@@ -321,26 +342,38 @@ export function DeleteNameAgeConfirm() {
 //   )
 // }
 
+// 人物作成成功画面を返す関数
 export function CreateNameAgeSucceeded() {
+  // 表題・表示色・メッセージを与えて人物作成成功画面を生成した結果を返却する。
   return <ResultDisplay header="人物作成成功" className="blue" message="人物の作成に成功しました。" />;
 }
 
+// 人物作成失敗画面を返す関数
 export function CreateNameAgeFailed() {
+  // 表題・表示色・メッセージを与えて人物作成失敗画面を生成した結果を返却する。
   return <ResultDisplay header="人物作成失敗" className="red" message="人物の作成に失敗しました。" />;
 }
 
+// 人物修正成功画面を返す関数
 export function UpdateNameAgeSucceeded() {
+  // 表題・表示色・メッセージを与えて人物修正成功画面を生成した結果を返却する。
   return <ResultDisplay header="人物修正成功" className="blue" message="人物の修正に成功しました。" />;
 }
 
+// 人物修正失敗画面を返す関数
 export function UpdateNameAgeFailed() {
+  // 表題・表示色・メッセージを与えて人物修正失敗画面を生成した結果を返却する。
   return <ResultDisplay header="人物修正失敗" className="red" message="人物の修正に失敗しました。" />;
 }
 
+// 人物削除成功画面を返す関数
 export function DeleteNameAgeSucceeded() {
+  // 表題・表示色・メッセージを与えて人物削除成功画面を生成した結果を返却する。
   return <ResultDisplay header="人物削除成功" className="blue" message="人物の削除に成功しました。" />;
 }
 
+// 人物削除失敗画面を返す関数
 export function DeleteNameAgeFailed() {
+  // 表題・表示色・メッセージを与えて人物削除成功画面を生成した結果を返却する。
   return <ResultDisplay header="人物削除失敗" className="red" message="人物の削除に失敗しました。" />;
 }
