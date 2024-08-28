@@ -19,3 +19,7 @@ public interface JoinListRepository extends JpaRepository<JoinList,Integer>{
 			+ "INNER JOIN createtb_db.name_hobby_list ON createtb_db.name_age_list2.name = createtb_db.name_hobby_list.name",nativeQuery=true)
 	//JoinList型のListを返り値とするメソッドJoinMethod()を作る←JoinMethod()を使用することで上記のクエリが実行される
 	public List<JoinList> JoinMethod();
+
+
+
+}
