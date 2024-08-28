@@ -95,7 +95,7 @@ const updateOptions = {
 
 // 人物修正画面を返す関数
 export function UpdateNameAge() {
-  // 表題・フォーム情報・URL情報・エラーメッセージを与えて人物修正画面を生成した結果を返却する。
+  // 表題・フォーム情報・URL情報・設定項目・エラーメッセージを与えて人物修正画面を生成した結果を返却する。
   return <CreateDisplay header="人物修正" dataInfo={dataInfo} links={updateLinks} options={updateOptions} errorDisplayMap={errorDisplayMap} />
 }
 
