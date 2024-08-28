@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.springtest.model.NameAge2Model;
 
-@Repository // DB操作をするRepositoryクラスと認識させる
+@Repository // DB操作をするリポジトリクラスと認識させる
 // name_age_list2とname_hobby_listテーブルの操作を行うクラス
 public interface NameAge2Repository extends JpaRepository<NameAge2Model, Integer> {
 

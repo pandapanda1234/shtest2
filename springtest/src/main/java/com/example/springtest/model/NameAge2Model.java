@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 
 @Getter // getterメソッドを生成する
 @Setter // setterメソッドを生成する
-@Entity // Repositoryで使用できるデータを表すEntityクラスと認識させる
+@Entity // Repositoryで使用できるデータを表すエンティティクラスと認識させる
 // name_age_list2とname_hobby_listテーブルの情報を格納するクラス
 public class NameAge2Model {
     
