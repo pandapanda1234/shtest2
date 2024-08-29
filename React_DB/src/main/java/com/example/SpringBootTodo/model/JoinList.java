@@ -1,8 +1,6 @@
 package com.example.SpringBootTodo.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,9 +21,6 @@ public class JoinList {
 	
 	//Entityの主キーを設定する
 	@Id
-	
-	//テーブルのidentity列を利用して，主キー値を生成する←insertする時に、主キーを自動生成してくれる
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	
 	//Integer型の変数idを宣言する
 	private Integer id;
