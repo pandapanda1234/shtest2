@@ -20,6 +20,8 @@ import NextPage from './NextPage';
 import Experiment from './Experiment';
 import DB from './DB';
 import DBUpdate from './DBUpdate';
+
+//DBJoin.jsからDBJoinをインポートする
 import DBJoin from './DBJoin';
 
 
@@ -36,6 +38,9 @@ root.render(
         <Link to='/NextPage'>NextPage</Link><br/>
         <Link to="/Experiment">Experiment</Link><br/>
         <Link to="/DB">DB</Link><br/>
+
+
+        {/* DBJoinという名のLinkを作成する */}
         <Link to="/DBJoin">DBJoin</Link><br/>
         <Link to='/'>HOME</Link>
 
@@ -47,7 +52,7 @@ root.render(
             <Route path='/DB' element={<DB />} />
               <Route path='/DBUpdate' element={<DBUpdate/>} /> {/*NavigateでPathを通している*/}
 
-
+              {/* 作成したLinkとDBJoinコンポーネントとのパスを通す */}
             <Route path='/DBJoin' element={<DBJoin/>} />
           </Routes>
         
